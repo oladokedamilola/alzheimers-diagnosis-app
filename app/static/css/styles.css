@@ -1,0 +1,156 @@
+/* General Layout */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #F7F7F7; /* Light gray background */
+    color: #333; /* Dark gray text */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #4A90E2; /* Soft blue navbar */
+}
+
+.navbar-brand {
+    font-weight: 700;
+    color: white;
+}
+
+.navbar-nav .nav-link {
+    color: white;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #50E3C2; /* Mint green hover effect */
+}
+
+/* Hero Section */
+.hero {
+    background-color: #F0F8FF; /* Very light blue for calming effect */
+    padding: 60px 0;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    color: #4A90E2;
+    font-weight: 700;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    color: #666; /* Lighter gray for supporting text */
+}
+
+.hero .btn-primary {
+    background-color: #50E3C2; /* Mint green button */
+    border-color: #50E3C2;
+    transition: background-color 0.3s ease;
+}
+
+.hero .btn-primary:hover {
+    background-color: #4A90E2; /* Hover effect for buttons */
+}
+
+/* Features Section */
+.features {
+    background-color: white;
+    padding: 50px 0;
+}
+
+.features h3 {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 600;
+}
+
+.features p {
+    color: #777;
+}
+
+.features i {
+    margin-bottom: 15px;
+}
+
+/* Call-to-Action Section */
+.cta {
+    background-color: #4A90E2;
+    padding: 40px 0;
+}
+
+.cta h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.cta p {
+    font-size: 1.25rem;
+    color: #F7F7F7; /* Light text */
+}
+
+.cta .btn-light {
+    color: #4A90E2;
+    font-weight: 500;
+}
+
+/* Footer */
+footer {
+    background-color: #2C3E50; /* Navy blue footer */
+    color: white;
+    padding: 20px 0;
+    font-size: 0.875rem;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #4A90E2;
+    border-color: #4A90E2;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #50E3C2;
+    border-color: #50E3C2;
+}
+
+/* Cards (if used) */
+.card {
+    border: none;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Accessibility Focus Styles */
+:focus {
+    outline: 2px solid #50E3C2;
+    outline-offset: 4px;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .cta h2 {
+        font-size: 2rem;
+    }
+}

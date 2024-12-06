@@ -1,0 +1,216 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .hero {
+        background-image: url('{{ url_for('static', filename='images/hero1.jpg') }}');
+        background-size: cover; /* Change to 'contain' to prevent cropping */
+        background-position: center; /* Center the image */
+        background-repeat: no-repeat; /* Prevent the image from repeating */
+        color: #fff;
+        position: relative;
+        height: 95vh; /* Adjust height as needed */
+        margin-top: 0; /* Remove any default top margin */
+    }
+    .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+        z-index: 1;
+    }
+
+    .hero .container {
+        position: relative;
+        z-index: 2; /* Ensures content appears above the overlay */
+    }
+
+    .hero h1, .hero p {
+        color: #fff; /* Ensures text is readable over the background image */
+    }
+
+    .hero .btn-primary {
+        background-color: #4A90E2; /* Custom button color */
+        border-color: #4A90E2;
+    }
+
+    .hero h1 {
+        margin-top: 120px; /* Adjust this value to move the heading down */
+    }
+
+    .hero p {
+        margin-top: 20px; /* Adjust this value to move the paragraph down */
+    }
+
+    .card-icon {
+        font-size: 50px; /* Adjust icon size */
+    }
+
+    .alzheimer-info img {
+        max-width: 100%; /* Make the image responsive */
+        height: auto; /* Maintain aspect ratio */
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 1200px) {
+        .hero h1 {
+            font-size: 2.5rem; /* Smaller heading size for medium screens */
+        }
+    }
+
+    @media (max-width: 992px) {
+        .hero h1 {
+            font-size: 2rem; /* Smaller heading size for smaller screens */
+        }
+        .hero p {
+            font-size: 1.2rem; /* Smaller paragraph size */
+        }
+        .card-icon {
+            font-size: 40px; /* Smaller icon size */
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero h1 {
+            font-size: 1.8rem; /* Further reduced heading size */
+        }
+        .hero p {
+            font-size: 1rem; /* Further reduced paragraph size */
+        }
+        .features .card, .how-it-works .card {
+            margin-bottom: 20px; /* Add spacing between cards */
+        }
+    }
+
+    @media (max-width: 576px) {
+        .hero h1 {
+            font-size: 1.5rem; /* Smallest heading size */
+        }
+        .hero p {
+            font-size: 0.9rem; /* Smallest paragraph size */
+        }
+        .card-icon {
+            font-size: 30px; /* Smallest icon size */
+        }
+    }
+</style>
+
+<!-- Hero Section -->
+<section class="hero text-center">
+    <div class="container">
+        <h1 class="display-4">Welcome to the Alzheimer Classification Web App</h1>
+        <p class="lead">Harness the power of AI to help with early diagnosis and better treatment planning for Alzheimer’s.</p>
+
+        {% if current_user.is_authenticated %}
+            <!-- Upload button for logged-in users -->
+            <a href="{{ url_for('main.upload_image') }}" class="btn btn-primary btn-lg mt-3">Upload Image</a>
+        {% else %}
+            <!-- Get Started button for non-authenticated users -->
+            <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg mt-3">Get Started</a>
+        {% endif %}
+    </div>
+</section>
+
+
+<!-- Features Section -->
+<section class="features py-5">
+    <div class="container text-center">
+        <h2 class="mb-4">Features</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <i class="fas fa-brain card-icon" style="color: #50E3C2;"></i>
+                    <h3 class="mt-3">Accurate Diagnosis</h3>
+                    <p>Utilize advanced algorithms to provide highly accurate classification results.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <i class="fas fa-chart-line card-icon" style="color: #8E44AD;"></i>
+                    <h3 class="mt-3">Track Progress</h3>
+                    <p>Monitor patient progress and get real-time updates with ease.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <i class="fas fa-user-shield card-icon" style="color: #FF5E57;"></i>
+                    <h3 class="mt-3">Secure and Private</h3>
+                    <p>All patient data is kept confidential and protected with the highest standards of security.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works py-5">
+    <div class="container text-center">
+        <h2 class="mb-4">How It Works</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <i class="fas fa-user-plus card-icon" style="color: #F39C12;"></i>
+                    <h3 class="mt-3">Register / Login</h3>
+                    <p>Sign up or log in to your account.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <i class="fas fa-upload card-icon" style="color: #E67E22;"></i>
+                    <h3 class="mt-3">Upload Image</h3>
+                    <p>Upload an image for analysis related to Alzheimer's detection.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <i class="fas fa-search card-icon" style="color: #27AE60;"></i>
+                    <h3 class="mt-3">Receive Results</h3>
+                    <p>Get your results quickly and accurately through our AI system.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Alzheimer's Disease Information Section -->
+<section class="alzheimer-info py-5">
+    <div class="container">
+        <h2 class="mb-4">Understanding Alzheimer's Disease</h2>
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <p>Alzheimer's disease is a progressive neurological disorder that leads to cognitive decline, memory loss, and ultimately the inability to carry out simple tasks. It is the most common cause of dementia among older adults.</p>
+                <h5>Symptoms of Alzheimer's Disease:</h5>
+                <ul>
+                    <li>Memory loss that disrupts daily life</li>
+                    <li>Difficulty completing familiar tasks</li>
+                    <li>Confusion with time or place</li>
+                    <li>Challenges in understanding visual images and spatial relationships</li>
+                    <li>New problems with words in speaking or writing</li>
+                    <li>Withdrawal from work or social activities</li>
+                    <li>Changes in mood and personality</li>
+                </ul>
+                <p>Early detection and intervention are crucial for managing the disease and improving the quality of life for individuals affected.</p>
+            </div>
+            <div class="col-md-6">
+                <img src="{{ url_for('static', filename='images/alz.jpg') }}" class="img-fluid" alt="Alzheimer's Disease Awareness">
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if not current_user.is_authenticated %}
+    <!-- CTA Section -->
+    <section class="cta bg-primary text-white text-center py-5">
+        <div class="container">
+            <h2>Ready to get started?</h2>
+            <p>Sign up now and start benefiting from early Alzheimer’s detection today!</p>
+            <a href="{{ url_for('auth.register') }}" class="btn btn-light btn-lg">Register Now</a>
+        </div>
+    </section>
+{% endif %}
+
+
+{% endblock %}

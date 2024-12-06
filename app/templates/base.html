@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts (Roboto) -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- Fav Icon-->
+     <link rel="shortcut icon" href="{{ url_for('static', filename='fav.png') }}" type="image/x-icon">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #F7F7F7;
+            color: #333;
+        }
+        .navbar {
+            background-color: #4A90E2;
+        }
+        .navbar-brand {
+            color: white;
+        }
+        .navbar-nav .nav-link {
+            color: white;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #50E3C2;
+        }
+        footer {
+            background-color: #2C3E50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        /* Flash Message Styling */
+        .flash-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+            min-width: 300px;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .flash-close {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: #555;
+            cursor: pointer;
+        }
+        .flash-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1050; /* Ensures it appears above other elements */
+            width: 100%;
+            max-width: 600px; /* Standardize width */
+            display: flex;
+            justify-content: center;
+        }
+        
+        .flash-message-container .alert {
+            width: 100%;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }        
+    </style>
+</head>
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{{ url_for('main.home') }}">Alzheimer App</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                {% if request.path != url_for('main.home') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.home') }}">Home</a>
+                    </li>
+                {% endif %}
+
+                {% if current_user.is_authenticated %}
+                    {% if request.path != url_for('main.upload_image') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('main.upload_image') }}">Upload</a>
+                        </li>
+                    {% endif %}
+                
+                    {% if request.path != url_for('main.history') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('main.history') }}">History</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+                    </li>
+                {% else %}
+                    {% if request.path != url_for('auth.login') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
+                        </li>
+                    {% endif %}
+                    {% if request.path != url_for('auth.register') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    
+
+    <!-- Flash Messages -->
+     <!-- Flash Message Container -->
+     <div class="flash-container d-flex justify-content-center">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-message-container">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+
+    <!-- Main Content -->
+    <div>
+        {% block content %}
+        {% endblock %}
+    </div>
+
+{% block footer %}
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Alzheimer Classification Web App. All rights reserved.</p>
+    </footer>
+{% endblock footer %}
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Flash Message Auto Dismiss JS -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Auto dismiss flash messages after 7 seconds
+            setTimeout(() => {
+                document.querySelectorAll(".flash-message").forEach((flash) => {
+                    flash.classList.add("d-none");
+                });
+            }, 7000);
+
+            // Close flash message on clicking X icon
+            document.querySelectorAll(".flash-close").forEach(button => {
+                button.addEventListener("click", function() {
+                    button.parentElement.classList.add("d-none");
+                });
+            });
+        });
+    </script>
+</body>
+</html>

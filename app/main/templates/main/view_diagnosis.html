@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header text-center bg-primary text-white">
+            <h2>Diagnosis Details</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 class="text-secondary">Diagnosis</h4>
+                    <p class="fs-4"><strong>{{ upload.predicted_class }}</strong></p>
+
+                    <h4 class="text-secondary">Confidence Score</h4>
+                    <p class="fs-4"><strong>{{ upload.confidence_score | round(2) }}%</strong></p>
+
+                    <h4 class="text-secondary">Date of Upload</h4>
+                    <p class="fs-4"><strong>{{ upload.timestamp.strftime('%B %d, %Y at %I:%M %p') }}</strong></p>
+                </div>
+                <div class="col-md-6 text-center">
+                    <h5 class="text-secondary">Uploaded Image</h5>
+                    <img src="{{ url_for('static', filename=upload.image_path) }}" alt="Diagnosis Image" class="img-fluid rounded shadow-sm" style="max-width: 100%; height: auto;">
+                </div>
+            </div>
+            <hr>
+            <div>
+                <h4 class="text-secondary">Stage Information</h4>
+                <p><strong>Stage:</strong> {{ upload.predicted_stage }}</p>   
+                <p><strong>Description:</strong> {{ upload.description }}</p>
+                <p><strong>Symptoms:</strong> {{ upload.symptoms }}</p>
+                <p><strong>Care Recommendations:</strong> {{ upload.care_recommendations }}</p>
+            </div>
+            <hr>
+            <div>
+                <a href="{{ url_for('main.history') }}" class="btn btn-secondary">Back to History</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<footer class="text-center mt-5 py-3 bg-light shadow-sm">
+    <p class="mb-0">&copy; 2024 Alzheimer Classification Web App. All rights reserved.</p>
+</footer>
+{% endblock %}

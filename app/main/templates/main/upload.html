@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 rounded">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Upload Alzheimer's Image</h4>
+                    <p class="mb-0">Upload an image to classify it based on Alzheimer's disease stages</p>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST" enctype="multipart/form-data">
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="mb-3">
+                            {{ form.image.label(class="form-label") }}
+                            {{ form.image(class="form-control form-control-lg") }}
+                            <div class="form-text text-muted">
+                                Only JPG, JPEG, and PNG formats are accepted.
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid">
+                            {{ form.submit(class="btn btn-primary btn-lg") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+    <!-- Footer -->
+    <footer style="margin-top: 150px;">
+        <p>&copy; 2024 Alzheimer Classification Web App. All rights reserved.</p>
+    </footer>
+{% endblock footer %}

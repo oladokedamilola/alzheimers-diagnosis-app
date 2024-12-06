@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header text-center bg-primary text-white">
+            <h2>Alzheimer's Disease Classification Result</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 class="text-secondary">Diagnosis</h4>
+                    <p class="fs-4"><strong>{{ predicted_stage }}</strong></p>
+                    
+                    <h4 class="text-secondary">Confidence Score</h4>
+                    <p class="fs-4"><strong>{{ confidence_score | round(2) }}%</strong></p>
+                </div>
+                <div class="col-md-6 text-center">
+                    <h5 class="text-secondary">Uploaded Image</h5>
+                    <img src="{{ url_for('static', filename='uploads/' + image_file) }}" alt="Uploaded Image" class="img-fluid rounded shadow-sm" style="max-width: 100%; height: auto;">
+                </div>
+            </div>
+            <hr>
+            <div>
+                <h4 class="text-secondary">Stage Information</h4>
+                <p><strong>Stage:</strong> {{ stage }}</p>            <!-- Display stage -->
+                <p><strong>Description:</strong> {{ description }}</p>  <!-- Display description -->
+                <p><strong>Symptoms:</strong> {{ symptoms }}</p>        <!-- Display symptoms -->
+                <p><strong>Care Recommendations:</strong> {{ care_recommendations }}</p>  <!-- Display care recommendations -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<footer class="text-center mt-5 py-3 bg-light shadow-sm">
+    <p class="mb-0">&copy; 2024 Alzheimer Classification Web App. All rights reserved.</p>
+</footer>
+{% endblock %}
