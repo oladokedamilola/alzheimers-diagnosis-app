@@ -19,7 +19,7 @@ The **Alzheimer's Diagnosis App** is a Flask-based web application that utilizes
 ## Demo
 
 ![Upload Page](https://github.com/oladokedamilola/alzheimers-diagnosis-app/blob/master/alz3.png?raw=true)
-![Diagnosis Results](path-to-your-results-page-image)
+![Diagnosis Results](https://github.com/oladokedamilola/alzheimers-diagnosis-app/blob/master/alz4.png?raw=true)
 
 ## How It Works
 
